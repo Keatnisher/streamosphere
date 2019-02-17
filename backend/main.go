@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"github.com/anthonyasanchez/streamosphere/backend/security"
 	"github.com/anthonyasanchez/streamosphere/backend/api"
@@ -10,6 +9,7 @@ import (
 func main() {
 	api_handler := api.CreateApiHandler()
 	// Define default server port and paths to handle.
+	// Use port 8443 which the server vm will forward traffic from 443. i.e 443 -> 8443
 	server := &http.Server{
 		Addr:    ":8443",
 		Handler: api_handler,
@@ -17,9 +17,8 @@ func main() {
 	// Getting Certification Manager for Server.
 	cert_manager := security.SecureHTTPS(server) 
 
-	fmt.Printf("Serving on HTTPS\n")
 	// The http server is listening to port 8080 for http request and will send an invalid response.
 	go http.ListenAndServe(":8080", cert_manager.HTTPHandler(nil))
-	// Will by default use the TLSConfig in the construction of the server above.
+	// Will by default use the TLSConfig defined in 'SecureHTTPS'.
 	server.ListenAndServeTLS("", "")
 }
