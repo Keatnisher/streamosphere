@@ -3,57 +3,65 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import sig from '.././images/signature1.png';
 import Modal from 'react-awesome-modal';
+import accHome from '.././layouts/AccountHome.css';
+import Edit from './EditDescription';
 
 export class AccountHome extends Component {
-    
-   
-   
 
-    render() {        
+    openEdit() {
+        return <Edit> </Edit>
+    }
+    render() {
         return (
-            <div>
-                <ContextMenuTrigger id="2" >
-                    <div className="well">File 1</div>
-                    <div className="well">File 2</div>
-                    <div className="well">File 3</div>
-                    <div className="well">File 4</div>
-                    <div className="well">File 5</div>
-                </ContextMenuTrigger>
-                <ContextMenu id="2">
-                    <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick}>
-                        Cut
-                </MenuItem>
-                    <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick}>
-                        Copy
-                </MenuItem>
-                    <MenuItem divider />
-                    <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick}>
-                        Move
-                </MenuItem>
-                    <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick}>
-                        Edit Description
-                </MenuItem>
-                    <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick}>
-                        Rename
-                </MenuItem>
-                </ContextMenu>
-                <h1>Account Home Page</h1>
-                <p> Placeholder image </p>
-                <button>New</button>
-                <input type="file" name="" id="" onChange={this.handleselectedFile} />
-                <button onClick={this.handleUpload}>Upload</button>
-                <a href={sig} download>
-                    <img src={sig} alt="One of my signatures" />
-                </a> <br />               
-                
-                <Link to="/">Logout</Link> <br />
+            <body>
+                <div>
                     
-                <Subscribe> </Subscribe>
-            </div>
-            
+                    <h1>Account Home Page</h1>
+                    <p> Placeholder image </p>
+                    <button>New</button>
+                    <input type="file" name="" id="" onChange={this.handleselectedFile} />
+                    <button onClick={this.handleUpload}>Upload</button>
+                    <a href={sig} download>
+                        <img src={sig} alt="One of my signatures" />
+                    </a> <br />
+
+                    <Link to="/">Logout</Link> <br />
+
+                    <Subscribe> </Subscribe>
+                    <ContextMenuTrigger id="2" style={accHome.ContextMenu} >
+                        <div className="well">File 1</div>
+                        <div className="well">File 2</div>
+                        <div className="well">File 3</div>
+                        <div className="well">File 4</div>
+                        <div className="well">File 5</div>
+                    </ContextMenuTrigger>
+                    <ContextMenu id="2">
+                        <button> <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick} style={accHome.MenuItem}>
+                            Cut
+                            </MenuItem>
+                        </button>
+                        <button> <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick} style={accHome.MenuItem}>
+                            Copy
+                            </MenuItem>
+                        </button>
+                        <MenuItem divider />
+                        <button> <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick} style={accHome.MenuItem}>
+                            Move
+                            </MenuItem>
+                        </button>
+                        <Edit> </Edit>
+                        <button> <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick} style={accHome.MenuItem}>
+                            Rename
+                                </MenuItem>
+                        </button>
+                    </ContextMenu>
+                </div>
+            </body>          
         );
     }
 }
+
+
 
 export default class Subscribe extends Component {
     constructor(props) {
