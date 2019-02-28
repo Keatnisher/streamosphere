@@ -7,13 +7,14 @@ export class Login extends Component {
         this.state = {
             username: '',
             pass: ''
-        };
-
-        
+        };  
     }
 
     handleChange(event) {
-        this.setState([event.target.name], event.target.value)
+        this.setState({
+            username: event.target.value,
+            pass: event.target.value
+        })
     }
     handleSubmit(data) {
         this.username = data.input.username,
@@ -27,9 +28,9 @@ export class Login extends Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <label> Username: <input type="text" name="username" value={this.state.username.value} onChange={event => this.handleChange(event)} /> <br />
-                        <label> Password: <input type="password" name="username" value={this.state.pass.value} onChange={event => this.handleChange(event)} /> <br />
+                        <label> Password: <input type="password" name="pass" value={this.state.pass.value} onChange={event => this.handleChange(event)} /> <br />
                             <button type="submit" onClick={this.goToHome}> Login </button>
-                            <Link to="/register"><button>New> Sign Up Here!</button></Link>
+                            <Link to="/register"><button>New? Sign Up Here!</button></Link>
                             <a href="forgot.js">Forgot Password?</a>
                         </label>
                     </label>

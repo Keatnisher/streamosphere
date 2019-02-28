@@ -3,32 +3,38 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import sig from '.././images/signature1.png';
 import Modal from 'react-awesome-modal';
-import accHome from '.././layouts/AccountHome.css';
+import { accHome } from '.././layouts/AccountHome.css';
 import Edit from './EditDescription';
+import Rename from './RenameFile';
+import File from './File';
 
 export class AccountHome extends Component {
 
-    openEdit() {
-        return <Edit> </Edit>
-    }
     render() {
+        const styles = {
+            body: {
+                backgroundColor: 'lightgreen',
+            },
+            contextMenuTrigger: {                
+                backgroundColor: 'white',                
+            },
+        };
         return (
-            <body>
-                <div>
-                    
+            <body style={styles.body}>
+                <div>                  
                     <h1>Account Home Page</h1>
                     <p> Placeholder image </p>
-                    <button>New</button>
+                    <File> </File>
                     <input type="file" name="" id="" onChange={this.handleselectedFile} />
-                    <button onClick={this.handleUpload}>Upload</button>
+                    <button onClick={this.handleUpload}>Upload</button> <br />
                     <a href={sig} download>
-                        <img src={sig} alt="One of my signatures" />
+                       Download
                     </a> <br />
 
                     <Link to="/">Logout</Link> <br />
 
                     <Subscribe> </Subscribe>
-                    <ContextMenuTrigger id="2" style={accHome.ContextMenu} >
+                    <ContextMenuTrigger id="2" style={styles.contextMenuTrigger} >
                         <div className="well">File 1</div>
                         <div className="well">File 2</div>
                         <div className="well">File 3</div>
@@ -36,24 +42,21 @@ export class AccountHome extends Component {
                         <div className="well">File 5</div>
                     </ContextMenuTrigger>
                     <ContextMenu id="2">
-                        <button> <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick} style={accHome.MenuItem}>
+                        <a> <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick} >
                             Cut
                             </MenuItem>
-                        </button>
-                        <button> <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick} style={accHome.MenuItem}>
+                        </a>
+                        <a> <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick} >
                             Copy
                             </MenuItem>
-                        </button>
+                        </a>
                         <MenuItem divider />
-                        <button> <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick} style={accHome.MenuItem}>
+                        <a> <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick}>
                             Move
                             </MenuItem>
-                        </button>
+                        </a>
                         <Edit> </Edit>
-                        <button> <MenuItem data={{ foo: 'bar' }} onClick={this.handleClick} style={accHome.MenuItem}>
-                            Rename
-                                </MenuItem>
-                        </button>
+                        <Rename> </Rename>
                     </ContextMenu>
                 </div>
             </body>          

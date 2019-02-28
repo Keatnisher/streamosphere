@@ -5,7 +5,8 @@ export default class Edit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            visible: false,
+            
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
