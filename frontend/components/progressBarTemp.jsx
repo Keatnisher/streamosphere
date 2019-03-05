@@ -12,20 +12,21 @@ class ProgressBarExample extends React.Component {
     if(this.state.percentage === 100) return 
     this.setState({ percentage: this.state.percentage + 20 })
 	/*20 is filler amount*/
+	/*Must get filesize and divide that by file limit*/
   }
   
   render() {
     return (
       <div>
         
-        <h2> A React Progress Bar </h2>
+        <h2> Storage </h2>
         <ProgressBar percentage={this.state.percentage} />
         
         <div style={{ marginTop: '20px' }}>  
           <button 
             onClick={this.nextStep}
            >
-            Update Percent
+            Update Percent Tester
           </button>  
         </div>   
         
