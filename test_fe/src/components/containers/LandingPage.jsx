@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,7 +11,7 @@ export default class LandingPage extends React.Component {
       return (
         <div>
             <Button variant="light" style={{float:"right", padding: 5+"px",
-            margin: 10+"px"}}>Sign Up</Button>
+              margin: 10+"px"}}><Link to="/register">Sign Up</Link></Button>
             <h1>Streamosphere</h1>
             <Form class="signInForm" style={{width:512+"px", padding: 16+"px"}}>
                 <h2 >Sign In</h2>
