@@ -39,7 +39,7 @@ export class Register extends Component {
 						<Form.Control type="password" placeholder="Password" />
 					</Form.Group>
 				</Form>
-				<Nav.Link href="/AccountHome"><Button type="Submit">Submit</Button></Link>
+				<Link to="/AccountHome"><Button type="Submit">Submit</Button></Link>
             </div>
         );
     }
