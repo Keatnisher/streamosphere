@@ -9,21 +9,29 @@ export class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            email: '',
             pass: ''
         };
-
-        
+	this.handleChange = this.handleChange.bind(this);
+    	this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleChange(event) {
+    handleChange(e) {
         this.setState({
-            username: event.target.value,
-            pass: event.target.value
-        })
+            [e.target.name]: e.target.value
+        });
     }
-    handleSubmit(data) {
-        this.username = data.input.username,
-        this.pass = data.input.pass
+    handleSubmit(e) {
+	  e.preventDefault();
+	  const itemsRef = firebase.database().ref('items');
+	  const item = {
+	    title: this.state.currentItem,
+	    user: this.state.username
+	  }
+	  itemsRef.push(item);
+	  this.setState({
+	    currentItem: '',
+	    username: ''
+	  });
     }
     
     
@@ -31,12 +39,12 @@ export class Register extends Component {
         return (
             <div>
                 <img src={sph} alt="a sphere" wdith="300" height="300" />
-				<Form>
+				<Form onSubmit={this.handleSubmit}>
 					<Form.Group controlId="exampleForm.ControlInput1">
 						<Form.Label>Email address </Form.Label>
-						<Form.Control type="email" placeholder="name@example.com" />
+						<Form.Control type="email" placeholder="name@example.com" onChange={this.handleChange} value={this.state.email} />
 						<Form.Label>Password</Form.Label>
-						<Form.Control type="password" placeholder="Password" />
+						<Form.Control type="password" placeholder="Password" onChange={this.handleChange} value={this.state.pass}  />
 					</Form.Group>
 				</Form>
 				<Link to="/AccountHome"><Button type="Submit">Submit</Button></Link>
