@@ -1,15 +1,16 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import './LandingPage.css'
+import './LandingPage.css';
 
 export default class LandingPage extends React.Component {
     render() {
       return (
         <div>
-          <Button className="signUpButton" variant="light">Sign Up</Button>
+          <Link to="/register"><Button className="signUpButton" variant="light">Sign Up</Button></Link>
           <h1 className="landingBanner">Streamosphere</h1>
           <Form className="signInForm" >
             <h1 className="signInBanner"> 
