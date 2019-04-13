@@ -7,7 +7,7 @@ class App extends React.Component {
     render() {
       return (
         <Router history={hashHistory}>
-          <Route path='/' component={LandingPage} />
+          <Route exact path='/' component={LandingPage} />
           <Route path='/register' component={Register} />
           <Route path='/AccountHome' component={AccountHome} />
         </Router>
