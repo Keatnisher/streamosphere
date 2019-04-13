@@ -18,15 +18,18 @@ func InitApiHandler() *gin.Engine {
 func initRoutes(){
 
     // ------------------------- FILES -------------------------
-    router.GET("api/files/:file_id", GetSingleFile)
-    router.GET("api/users/:user_id/files", GetAllFiles)
-    router.GET("api/users/:user_id/files/:file_type", GetAllFilesByType)
+    router.GET("api/files/:FileID", GetSingleFile)
+    router.GET("api/users/:UserID/files", GetAllFiles)
+    router.GET("api/users/:UserID/files/:FileType", GetAllFilesByType)
 
     // Hanlde PATCH to edit any file attribute(s) (except arrays at the moment)
-    router.PATCH("api/files/:file_id", UpdateFile)
+    router.PATCH("api/files/:FileID", UpdateFile)
 
     // ------------------------- USERS -------------------------
     router.GET("api/users", GetUsers)
+
+    // ----------------------- FOLDERS -------------------------
+    router.GET("api/users/:UserID/folders", GetAllFolders)
 
 
 	// Set route for default landing page.
