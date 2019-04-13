@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import '../layouts/MainLayout.css';
+import '../../layouts/MainLayout.css';
 import sph from '../../images/sphere.jpg';
 import sph1 from '../../images/csSphere.jpg';
 
