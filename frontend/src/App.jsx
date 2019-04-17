@@ -4,7 +4,8 @@ import LandingPage from './components/containers/LandingPage.jsx'
 import SignInPage from './components/containers/SignIn.jsx'
 import HomePage from './components/containers/HomePage.jsx'
 import Navigation from './components/containers/Navigation.jsx'
-import VideoPlayerComp from './components/containers/VideoPlayer.jsx'
+// Anthony will add this later
+// import VideoPlayerComp from './components/containers/VideoPlayer.jsx'
 import * as ROUTES from './routes.jsx';
 
 class App extends React.Component {
