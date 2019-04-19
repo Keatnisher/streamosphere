@@ -22,7 +22,10 @@ export default class ContextMenuImpl extends React.Component {
             <div>
                 <ContextMenuTrigger id={this.props.contextId}>
                     <div>
-                        <File imageUrl={this.props.imageUrl}/>
+                        <File
+                            imageUrl={this.props.imageUrl}
+                            toggleMediaPlayerView={this.props.toggleMediaPlayerView}
+                        />
                     </div>
                 </ContextMenuTrigger>
 
