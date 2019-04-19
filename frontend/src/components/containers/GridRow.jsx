@@ -12,6 +12,7 @@ export default class GridRow extends Component {
                     imageUrl={this.props.imageUrlsRow[i]}
                     rowIndex={this.props.rowIndex}
                     colIndex={i}
+                    toggleMediaPlayerView={this.props.toggleMediaPlayerView}
                 />
                 );
         }

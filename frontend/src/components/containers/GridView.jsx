@@ -68,7 +68,12 @@ export default class Grid extends Component {
                     imageUrlsRow.push(locJson[j].ImageUrl)
                 }
                 console.log('[GridView.render]: image url row \n\t'+imageUrlsRow);
-                rowItems.push(<GridRow imageUrlsRow={imageUrlsRow} rowIndex={i}/>)
+                rowItems.push(
+                    <GridRow
+                        imageUrlsRow={imageUrlsRow}
+                        rowIndex={i}
+                        toggleMediaPlayerView={this.props.toggleMediaPlayerView}
+                    />)
             }
         }
 
