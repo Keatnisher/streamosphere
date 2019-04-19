@@ -7,8 +7,9 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 // custom components
 import Rename from './RenameFile.jsx';
-import NavBar from './NavBar.jsx';
+import FileControlButtons from './FileControlButtons.jsx';
 import GridView from './GridView.jsx';
+import MediaPlayerView from './MediaPlayerView.jsx';
 import File from './File.jsx';
 import EditDescription from './EditDescription.jsx';
 
@@ -25,6 +26,7 @@ export default class AccountHome extends Component {
             isCustomMenuOpen: false,
             isModalOpen: false,
             handleShow: false,
+            showMediaPlayer: false,
             fromChild: '',
             files: [
                 { fileName: "File 1", description: "an mp3 file"},
@@ -48,6 +50,9 @@ export default class AccountHome extends Component {
         this.boundItemClick = this.boundItemClick.bind(this);
         this.handleChildClick = this.handleChildClick.bind(this);
         this.editFileDescript = this.editFileDescript.bind(this);
+
+        // toggle whether to display files or library view
+        this.toggleMediaPlayerView = this.toggleMediaPlayerView.bind(this);
     }
     editFileDescript = (description) => {
         let curList = this.state.files;
@@ -123,6 +128,13 @@ export default class AccountHome extends Component {
             clickedFile: ev.currentTarget.dataset.value
         });
     }
+
+    toggleMediaPlayerView() {
+        console.log('[AccountHome.toggleMediaPlayerView] callback bubbled all the way up!');
+        let cur = this.state.showMediaPlayer;
+        this.setState({ showMediaPlayer: !cur });
+    }
+
     render() {
         let fileList = this.state.files;
 
@@ -139,45 +151,15 @@ export default class AccountHome extends Component {
                 <div id="streamosphere-banner">Streamosphere</div>
                 <div id="page-container">
                     <div id="left-content">
-                        <NavBar newFolder={this.addNewFolder} />
+                        <FileControlButtons newFolder={this.addNewFolder} />
                     </div>
                     <div id="right-content">
                         {/*<Link to="/" style={styles.link}><Button>Logout</Button></Link> <br />*/}
 
-                        <GridView />
-
-                        {/* ----------------------------------------------*/}
-                        {/* keeping this code to reference TODO: remove and integrate */}
-                        {/*<ContextMenuTrigger id="2">*/}
-                        {/*    <File filename="file1"*/}
-                        {/*          description="description1"*/}
-                        {/*          onContextMenu={this.handleChildClick}*/}
-                        {/*          datafileName={tempFileName1}*/}
-                        {/*          dataattr2={tempDescr1} />*/}
-
-                        {/*    {fileList.map(file =>*/}
-                        {/*        <div className="well" onContextMenu={this.handleChildClick} data-fileName={file.fileName} data-attr2={file.description} >*/}
-                        {/*            {file.fileName} <br />*/}
-                        {/*            {file.description}*/}
-                        {/*        </div>)*/}
-                        {/*    }*/}
-                        {/*    Imagine Dragons - Radioactive <audio id="audio" src={music}*/}
-                        {/*                                         preload="auto" controls muted loop autoPlay>*/}
-                        {/*</audio> <br />*/}
-                        {/*    <video width="320" height="240" controls>*/}
-                        {/*        <source src={video} type="audio/mp4" />*/}
-                        {/*    </video>*/}
-                        {/*    <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' playing loop controls />*/}
-                        {/*</ContextMenuTrigger>*/}
-
-                        {/*<ContextMenu id="2">*/}
-                        {/*    <ButtonGroup vertical>*/}
-                        {/*        <Button onClick={this.removeFile}>Cut</Button>*/}
-                        {/*        <Button onClick={this.addCopy}> Copy</Button>*/}
-                        {/*        <EditDescription editDescription={this.editFileDescript} />*/}
-                        {/*        <Rename getFileName={this.getFileName} />*/}
-                        {/*    </ButtonGroup>*/}
-                        {/*</ContextMenu>*/}
+                        {/* conditionally render account home or media viewer.*/}
+                        {/* this callback is going to get passed waaayy down. */}
+                        {!this.state.showMediaPlayer && <GridView toggleMediaPlayerView={this.toggleMediaPlayerView}/>}
+                        {this.state.showMediaPlayer && <MediaPlayerView toggleMediaPlayerView={this.toggleMediaPlayerView}/>}
                     </div>
                 </div>
             </div>
