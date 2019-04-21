@@ -3,13 +3,25 @@
 package api
 
 import (
+    // built ins
     "context"
     "net/http"
+    "log"
+    "io"
+    "bytes"
 
+    // mongo db
     "go.mongodb.org/mongo-driver/bson"
     "go.mongodb.org/mongo-driver/bson/primitive"
 
+    // gin for routing
     "github.com/gin-gonic/gin"
+
+    // aws interfacing
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/awsutil"
+    "github.com/aws/aws-sdk-go/service/s3"
+    "github.com/aws/aws-sdk-go/aws/session"
 )
 
 // since Content can have dynamic json, we'll use a map
@@ -228,11 +240,47 @@ func GetSingleFile(c *gin.Context) {
 }
 
 func UploadFile(c *gin.Context) {
-    client := GetMongoClient()
-    file_coll := client.Database("streamosphere").Collection("files")
 
-    // create a bson id from request url
-    bson_id, _ = primitive.ObjectIdFromHex(c.Param("UserID"))
-    file_type := c.GetHeader("Content-Type")
+    // securely create a session, you can't see the secrets. github ready baby
+    // loads from aws credentials and config file
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+    s3_cli := s3.New(sess)
+
+    // get the form data from the POST request
+    file, header,  _ := c.Request.FormFile("file")
+    defer file.Close()
+
+    file_name := header.Filename
+    size := header.Size
+
+    // create a buffer to copy the file into
+    buf := bytes.NewBuffer(nil)
+    if _, err := io.Copy(buf, file); err != nil { log.Println(err) }
+
+    // NewReader(b []byte) *Reader
+    fileBytes := bytes.NewReader(buf.Bytes())
+    fileType := http.DetectContentType(buf.Bytes())
+
+    // put into the users folder by id
+    user_id_folder := c.Param("UserID")
+    path := "/" + user_id_folder + "/" + file_name
+
+    // create params to put into s3. give public read access
+    params := &s3.PutObjectInput{
+        Bucket: aws.String("ec2-54-215-161-219.media"),
+        Key: aws.String(path),
+        Body: fileBytes,
+        ContentLength: aws.Int64(size),
+        ContentType: aws.String(fileType),
+        ACL: aws.String("public-read"),
+    }
+
+    // put the file into s3!
+    resp, err := s3_cli.PutObject(params)
+    if err != nil { log.Fatal(err) }
+
+    // print reponse e-tag (just to see non-failure)
+    log.Printf("response %s", awsutil.StringValue(resp))
 }
-
