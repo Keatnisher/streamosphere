@@ -10,12 +10,14 @@ export default class GridRow extends Component {
             console.log('[GridRow.render]: resource url '+this.props.resourceUrlsRow[i]);
             colItems.push(
                 <GridCol
+                    userId={this.props.userId}
                     imageUrl={this.props.imageUrlsRow[i]}
                     resourceUrl={this.props.resourceUrlsRow[i]}
                     resourceSize={this.props.resourceSizesRow[i]}
                     rowIndex={this.props.rowIndex}
                     colIndex={i}
                     toggleMediaPlayerView={this.props.toggleMediaPlayerView}
+                    setResourceViewedThumbnailImage={this.props.setResourceViewedThumbnailImage}
                     setResourceToViewUrl={this.props.setResourceToViewUrl}
                 />
                 );

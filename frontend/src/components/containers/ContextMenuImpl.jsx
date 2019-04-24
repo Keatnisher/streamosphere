@@ -53,8 +53,7 @@ export default class ContextMenuImpl extends React.Component {
             region: consts.S3_REGION
         });
 
-        // eventually should be props
-        let userId = consts.TEST_USER_ID;
+        let userId = this.props.userId;
         let resources = this.convertResource(this.props.resourceUrl, userId);
         let fileName = resources.fileName;
         let resourceKey = resources.resourceKey;
@@ -85,6 +84,7 @@ export default class ContextMenuImpl extends React.Component {
                             resourceUrl={this.props.resourceUrl}
                             resourceSize={this.props.resourceSize}
                             toggleMediaPlayerView={this.props.toggleMediaPlayerView}
+                            setResourceViewedThumbnailImage={this.props.setResourceViewedThumbnailImage}
                             setResourceToViewUrl={this.props.setResourceToViewUrl}
                         />
                     </div>
