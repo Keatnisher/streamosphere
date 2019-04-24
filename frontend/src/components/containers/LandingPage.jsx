@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../routes.jsx';
-// import { withFirebase } from '../firebase';
+import { withFirebase } from '../firebase';
 // import SignIn from './SignIn.jsx';
 import '../../layouts/LandingPage.css'
 
@@ -37,7 +37,8 @@ class SignUpFormBase extends React.Component {
             .doCreateUserWithEmailAndPassword(email, password)
             .then(authUser => {
               this.setState({ ...INITIAL_STATE });
-              // history.push(ROUTES.HOME);
+              this.props.history.push(ROUTES.HOME);
+
             })
             .catch(error => {
               this.setState({ error });
@@ -109,6 +110,6 @@ const SignUpLink = () => (
 //const SignUpForm = SignUpFormBase;
 
 
-export default SignUpFormBase;
+export default withFirebase(SignUpFormBase);
 
 //export { SignUpForm, SignUpLink };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { withRouter } from 'react-router-dom';
 // import SignUpLink from './LandingPage.jsx'
-// import { withFirebase } from '../firebase';
+import { withFirebase } from '../firebase';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../routes.jsx';
 import Form from 'react-bootstrap/Form';
@@ -31,13 +31,12 @@ class SignInFormBase extends Component {
 
     onSubmit = event => {
         const { email, password } = this.state;
-        this.props.history.push(ROUTES.HOME);
         this.props.firebase
             .doSignInWithEmailAndPassword(email, password)
             .then(() => {
                 // may need to change this with auth
-                this.setState({ ...ROUTES.HOME });
-                this.props.history.push(ROUTES.LANDING);
+                this.setState({ ...INITIAL_STATE });
+                this.props.history.push(ROUTES.HOME);
             })
             .catch(error => {
                 this.setState({ error });
@@ -56,6 +55,9 @@ class SignInFormBase extends Component {
         const isInvalid = password === '' || email === '';
 
         return (
+            <div className="landingBackground">
+                <Button className="signInButton" variant="light"><Link to={ROUTES.LANDING}>Sign Up</Link></Button>
+                <h1 className="landingBanner" >Welcome to Streamosphere</h1>
             <Form className="signUpForm"
                   onSubmit={this.onSubmit}>
                 <h1 className="signUpBanner">
@@ -84,16 +86,17 @@ class SignInFormBase extends Component {
                         disabled={isInvalid}
                         className="signUpButton"
                         variant="light" >
-                    <Link to={ROUTES.HOME}>Sign In</Link>
+                    Sign In
                 </Button>
                 {error && <p>{error.message}</p>}
             </Form>
+            </div>
         );
     }
 }
 
-//const SignInForm = withRouter(SignInFormBase);
+{/*//const SignInForm = withRouter(SignInFormBase);*/}
 
-export default SignInFormBase;
+export default withFirebase(SignInFormBase);
 
-//export { SignInForm };
+{/*//export { SignInForm };*/}

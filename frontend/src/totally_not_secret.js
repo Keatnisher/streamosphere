@@ -1,0 +1,2 @@
+export const S3_ACCESS_KEY_ID = 'AKIAII2JZ6IZ67JGCO4A';
+export const S3_SECRET_KEY= '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';
