@@ -83,6 +83,7 @@ export default class ContextMenuImpl extends React.Component {
                         <File
                             imageUrl={this.props.imageUrl}
                             resourceUrl={this.props.resourceUrl}
+                            resourceSize={this.props.resourceSize}
                             toggleMediaPlayerView={this.props.toggleMediaPlayerView}
                             setResourceToViewUrl={this.props.setResourceToViewUrl}
                         />
