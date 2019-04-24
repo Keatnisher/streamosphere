@@ -9,15 +9,19 @@ export default class Grid extends Component {
         super(props);
 
         this.state = {
-            filesJson: []
+            filesJson: [],
+            numCols: 4
         }
 
         this.getUrlRowSize = this.getUrlRowSize.bind(this);
+
+        // get width of component for conditional column rendering in grid
+        this.componentWidth = React.createRef();
     }
 
     componentDidMount() {
         // eventually user ID will be passed down, get all files for user
-        let userId = '5c9acddba0f0b4e94109c632';
+        let userId = this.props.userId;
         let allFilesUrl = consts.API_URL + '/users/'+userId+'/files';
         let that = this;
 
@@ -33,6 +37,8 @@ export default class Grid extends Component {
                 console.log('GridView.WillMount: '+data);
                 that.setState( { filesJson: data})
             })
+
+        console.log('[AccountHome.mounted] component width '+this.componentWidth.current.offsetWidth);
     }
 
     getUrlRowSize(i, len) {
@@ -47,7 +53,7 @@ export default class Grid extends Component {
     }
 
     render() {
-        let numCols = 4;
+        let numCols = this.state.numCols;
         let numFiles = this.state.filesJson.length;
         let locJson = this.state.filesJson;
         let rowItems = [];
@@ -69,6 +75,7 @@ export default class Grid extends Component {
 
                 rowItems.push(
                     <GridRow
+                        userId={this.props.userId}
                         imageUrlsRow={imageUrlsRow}
                         resourceUrlsRow={resourceUrlsRow}
                         resourceSizesRow={resourceSizesRow}
@@ -82,7 +89,7 @@ export default class Grid extends Component {
         }
 
         return (
-            <div>
+            <div ref={this.componentWidth}>
                 {rowItems}
             </div>
         );

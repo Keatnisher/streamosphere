@@ -149,6 +149,7 @@ export default class AccountHome extends Component {
     }
 
     render() {
+        let userId = '5c9acddba0f0b4e94109c632';
         return (
             <div>
                 <div id="streamosphere-banner">Streamosphere</div>
@@ -169,7 +170,7 @@ export default class AccountHome extends Component {
                                 toggleMediaPlayerView={this.toggleMediaPlayerView}
                                 setResourceViewedThumbnailImage={this.setResourceViewedThumbnailImage}
                                 setResourceToViewUrl={this.setResourceToViewUrl}
-
+                                userId={userId}
                             />}
                         {this.state.showMediaPlayer &&
                             <MediaPlayerView
