@@ -9,11 +9,8 @@
     display: inline-block;
     top: 0;
     margin: 25px;
-    min-height: 324px;
-    min-width: 324px;
-    max-height: 324px;
-    max-width: 324px;
-    -webkit-box-shadow: 0px 0px 33px -7px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 33px -7px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 33px -7px rgba(0,0,0,0.75);
+    min-height: 316px;
+    min-width: 316px;
+    max-height: 316px;
+    max-width: 316px;
 }
