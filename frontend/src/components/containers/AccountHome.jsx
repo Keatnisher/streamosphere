@@ -19,7 +19,7 @@ import * as consts from "../../Constants";
 
 
 export default class AccountHome extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {

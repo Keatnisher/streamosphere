@@ -16,7 +16,6 @@ export default class FileControlButtons extends Component {
             <div id="navigation-container">
                 <nav>
                     <ul>
-                        <li> <Folder addFolderToFileList={this.addToList}> </Folder> </li>
                         <li>
                             <UploadModalImpl
                                 refreshAfterUpload={this.props.refreshAfterUpload}
