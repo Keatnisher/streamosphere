@@ -31,14 +31,11 @@ class SignInFormBase extends Component {
     }
 
     async getEmail(email) {
-        let url = consts.API_URL + '/user';
-        let userId = await fetch(url, {
-            method: 'get',
-            body: JSON.stringify({"Email": email})
-        }).then(function (response) {
+        let url = consts.API_URL + '/user/'+email;
+        let userId = await fetch(url).then(function (response) {
             return response.json();
         }).then(function (data) {
-            return data.ID;
+            return data.id;
         });
         return userId
     }
