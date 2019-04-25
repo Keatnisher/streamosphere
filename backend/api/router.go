@@ -1,7 +1,7 @@
 package api
 
 import (
-//	"github.com/gin-gonic/contrib/static"
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 //    cors "github.com/rs/cors/wrapper/gin"
 )
@@ -13,6 +13,7 @@ func InitApiHandler() *gin.Engine {
     // allow api calls essentially
     router.Use(CORSMiddleware())
     initRoutes()
+    router.Use(static.Serve("/", static.LocalFile("../frontend/dist", true)))
     router.Run(":8080")
 
     return router
