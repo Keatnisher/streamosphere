@@ -74,11 +74,16 @@ class UploadFile extends Component {
             const formData = new FormData();
             formData.append("file", file);
 
-            // eventually user ID will be passed down, get all files for user
-            let userId = '5c9acddba0f0b4e94109c632'
-            let uploadFileUrl = 'http://streamosphere.net:8080/api/users/'+userId+'/files'
+            console.log('file: '+file);
+
+            let _userId = localStorage.getItem("userid");
+            console.log('adding files for user id: '+_userId);
+            let uploadFileUrl = 'http://streamosphere.net:8080/api/users/'+_userId+'/files';
             req.open("POST", uploadFileUrl);
             req.send(formData);
+
+            // please refresh the freakin state
+            this.props.refreshAfterUpload();
         });
     }
 
@@ -127,6 +132,7 @@ class UploadFile extends Component {
     }
 
     render() {
+        console.log('[UploadFile] storage user id: '+localStorage.getItem("userid"));
         return (
             <div className="Upload">
                 <span className="Title">Upload Files</span>

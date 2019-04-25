@@ -38,3 +38,7 @@
 .modal-open {
     overflow: scroll;
 }
+
+.hidden-refresh {
+    display: none;
+}

@@ -28,18 +28,9 @@ export default class AccountHome extends Component {
             showMediaPlayer: false,
             resourceViewedThumbnailImage: '',
             resourceToViewUrl: '',
-            refreshAfterUpload: false
+            stateRefreshAfterUpload: false,
+            userId: localStorage.getItem('userid')
         };
-
-        this.addCopy = this.addCopy.bind(this);
-        this.removeFile = this.removeFile.bind(this);
-        this.handleClickIndex = this.handleClickIndex.bind(this);
-        this.getFileName = this.getFileName.bind(this);
-
-        this.setClickedText = this.setClickedText.bind(this);
-        this.boundItemClick = this.boundItemClick.bind(this);
-        this.handleChildClick = this.handleChildClick.bind(this);
-        this.editFileDescript = this.editFileDescript.bind(this);
 
         // toggle whether to display files or library view
         this.toggleMediaPlayerView = this.toggleMediaPlayerView.bind(this);
@@ -48,80 +39,6 @@ export default class AccountHome extends Component {
 
         // simply to refresh state
         this.refreshAfterUpload = this.refreshAfterUpload.bind(this);
-    }
-    editFileDescript = (description) => {
-        let curList = this.state.files;
-        for (var i = 0; i < curList.length; i++) {
-            if (this.state.clickedFile.fileName == curList[i].fileName) {
-                curList[i].description = description;
-            }
-        }
-        this.setState({
-            files: curList
-        });
-    }
-    handleChildClick = (event) => {
-        event.preventDefault();
-        let fileSelected = this.state.clickedFile;
-        fileSelected.fileName = event.target.attributes.getNamedItem("data-fileName").value;
-        fileSelected.description = event.target.attributes.getNamedItem("data-attr2").value;
-        this.setState({
-            clickedFile: fileSelected
-        });
-    }
-    addNewFolder = (folder) => {
-        let curList = this.state.files;
-        let newFile = { fileName: '', description: '' }
-        newFile.fileName = folder;
-        curList.unshift(newFile);
-        this.setState({
-            files: curList
-        });
-    }
-    addCopy(e) {
-        let curList = this.state.files;
-        const newObj = {
-            fileName: '',
-            description: ''
-        };
-        for (var i = 0; i < curList.length; i++) {
-            if (this.state.clickedFile.fileName == curList[i].fileName) {
-                var curName = curList[i].fileName;
-                curName += " - Copy";
-                newObj.fileName = curName
-                newObj.description = curList[i].description;
-            }
-        }
-        curList.unshift(newObj);
-        this.setState({
-            files: curList
-        });
-    }
-    getFileName = (data,event) => {
-        let fileList = this.state.files;
-        //let clickedFile = event.currentTarget.innerText;
-        //console.log(clickedFile);
-        //console.log(data);
-        console.log(this.state.clickedFile);
-        for (var i = 0; i < fileList.length; i++) {
-            console.log(fileList[i]);
-            if (this.state.clickedFile.fileName == fileList[i].fileName) {
-                fileList[i].fileName = data;
-            }
-        }
-        this.setState({
-            files: fileList
-        });
-    }
-
-    setClickedText = (fileName) => {
-        console.log("get text function called");
-        this.setState({ clickedFile: fileName });
-    }
-    boundItemClick = (ev) => {
-        this.setState({
-            clickedFile: ev.currentTarget.dataset.value
-        });
     }
 
     toggleMediaPlayerView() {
@@ -143,12 +60,14 @@ export default class AccountHome extends Component {
     // this is not working as expected. not refreshing
     refreshAfterUpload() {
         console.log("[AccountHome.refreshAfterUpload] called: ");
-        let cur = this.state.refreshAfterUpload;
-        this.setState({refreshAfterUpload: !cur});
+        let cur = this.state.stateRefreshAfterUpload;
+        this.setState({stateRefreshAfterUpload: !cur});
     }
 
     render() {
-        let userId = '5c9acddba0f0b4e94109c632';
+        // let userId = '5c9acddba0f0b4e94109c632';
+        // let userId = localStorage.getItem('userid');
+        console.log('state user id logged in: '+this.state.userId);
         return (
             <div>
                 <div id="streamosphere-banner">Streamosphere</div>
@@ -169,13 +88,15 @@ export default class AccountHome extends Component {
                                 toggleMediaPlayerView={this.toggleMediaPlayerView}
                                 setResourceViewedThumbnailImage={this.setResourceViewedThumbnailImage}
                                 setResourceToViewUrl={this.setResourceToViewUrl}
-                                userId={userId}
+                                refresh={this.state.stateRefreshAfterUpload}
                             />}
                         {this.state.showMediaPlayer &&
                             <MediaPlayerView
                                 toggleMediaPlayerView={this.toggleMediaPlayerView}
                                 resourceToViewUrl={this.state.resourceToViewUrl}
                             />}
+                        {/* simply so the state will refresh after upload of files */}
+                        <p className="hidden-refresh">{this.state.stateRefreshAfterUpload}</p>
                     </div>
                 </div>
             </div>

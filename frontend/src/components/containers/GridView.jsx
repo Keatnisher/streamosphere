@@ -20,8 +20,7 @@ export default class Grid extends Component {
     }
 
     componentDidMount() {
-        // eventually user ID will be passed down, get all files for user
-        let userId = this.props.userId;
+        let userId = localStorage.getItem("userid");
         let allFilesUrl = consts.API_URL + '/users/'+userId+'/files';
         let that = this;
 
@@ -75,7 +74,6 @@ export default class Grid extends Component {
 
                 rowItems.push(
                     <GridRow
-                        userId={this.props.userId}
                         imageUrlsRow={imageUrlsRow}
                         resourceUrlsRow={resourceUrlsRow}
                         resourceSizesRow={resourceSizesRow}

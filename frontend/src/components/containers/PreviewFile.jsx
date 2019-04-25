@@ -14,6 +14,7 @@ export default class PreviewFile extends React.Component {
         this.handleResourceView = this.handleResourceView.bind(this);
         this.getImageComponent = this.getImageComponent.bind(this);
         this.urlToFileName = this.urlToFileName.bind(this);
+        this.bytesToMB = this.bytesToMB.bind(this);
     }
 
     toggle = () => {
@@ -43,6 +44,10 @@ export default class PreviewFile extends React.Component {
         return _split[_split.length-1].split('+').join(' ');
     }
 
+    bytesToMB(byteSize){
+        return Math.ceil(byteSize / 1000000);
+    }
+
     render(){
         let fileName = this.urlToFileName(this.props.resourceUrl);
         return (
@@ -55,7 +60,7 @@ export default class PreviewFile extends React.Component {
                     <MDBModalHeader toggle={this.toggle}>View Confirmation</MDBModalHeader>
                     <MDBModalBody>
                         <p>Are you sure you want to view <span className="bold">{fileName}</span>?</p>
-                        <p>File size: {this.props.resourceSize}</p>
+                        <p>File size: about <span className="bold">{this.bytesToMB(this.props.resourceSize)} MB</span></p>
                     </MDBModalBody>
                     <MDBModalFooter>
                         <MDBBtn color="secondary" onClick={this.toggle}>Close</MDBBtn>

@@ -8,7 +8,6 @@ export default class GridCol extends Component {
         return (
             <div className="grid-col">
                 <ContextMenuImpl
-                    userId={this.props.userId}
                     imageUrl={this.props.imageUrl}
                     resourceUrl={this.props.resourceUrl}
                     resourceSize={this.props.resourceSize}

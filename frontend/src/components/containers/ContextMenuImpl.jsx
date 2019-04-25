@@ -53,7 +53,7 @@ export default class ContextMenuImpl extends React.Component {
             region: consts.S3_REGION
         });
 
-        let userId = this.props.userId;
+        let userId = localStorage.getItem("userid");
         let resources = this.convertResource(this.props.resourceUrl, userId);
         let fileName = resources.fileName;
         let resourceKey = resources.resourceKey;

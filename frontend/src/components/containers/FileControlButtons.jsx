@@ -19,8 +19,8 @@ export default class FileControlButtons extends Component {
                         <li> <Folder addFolderToFileList={this.addToList}> </Folder> </li>
                         <li>
                             <UploadModalImpl
-                                refreshAfterUpload={this.props.refreshAfterUpload}>
-                            </UploadModalImpl>
+                                refreshAfterUpload={this.props.refreshAfterUpload}
+                            />
                         </li>
                     </ul>
                 </nav>
