@@ -41,31 +41,34 @@ export default class AccountHome extends Component {
         // simply to refresh state
         this.refreshAfterUpload = this.refreshAfterUpload.bind(this);
     }
-
+    
+    //display all files
     toggleMediaPlayerView() {
         console.log('[AccountHome.toggleMediaPlayerView] callback bubbled all the way up!');
         let cur = this.state.showMediaPlayer;
         this.setState({ showMediaPlayer: !cur });
     }
-
+    
+    //display image for a file
     setResourceViewedThumbnailImage(url){
         console.log("[AccountHome.setResourceThumbnailImage] resource url: "+ url);
         this.setState({resourceViewedThumbnailImage: url});
     }
-
+    
     setResourceToViewUrl(url) {
         console.log("[AccountHome.setResourceToView] resource url: "+ url);
         this.setState({ resourceToViewUrl: url })
     }
 
-    // this is not working as expected. not refreshing
+    // update view with uploaded file(s)
     refreshAfterUpload() {
         console.log("[AccountHome.refreshAfterUpload] called: ");
 
         let userId = localStorage.getItem("userid");
         let allFilesUrl = consts.API_URL + '/users/'+userId+'/files';
         let that = this;
-
+        
+        //get all files from database
         fetch(allFilesUrl)
             .then( res => {
                 if (res.status >= 400) { throw new Error("Bad response from server")}
@@ -79,7 +82,8 @@ export default class AccountHome extends Component {
                 that.setState( { filesJson: data})
             });
     }
-
+    
+    //get files from database when component is rendered
     componentDidMount() {
         let userId = localStorage.getItem("userid");
         let allFilesUrl = consts.API_URL + '/users/'+userId+'/files';
