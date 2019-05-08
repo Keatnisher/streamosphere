@@ -1,4 +1,5 @@
-﻿import React, { Component } from 'react';
+//libraries, components, and files needed for this component
+import React, { Component } from 'react';
 import Folder from './Folder.jsx';
 import UploadModalImpl from './UploadModalImpl.jsx';
 import '../../layouts/FileControlButtons.css';
@@ -11,6 +12,8 @@ export default class FileControlButtons extends Component {
     addToList = (folder) => {
         this.props.newFolder(folder);
     }
+    
+    //view for FileControlButtons component
     render() {
         return (
             <div id="navigation-container">
