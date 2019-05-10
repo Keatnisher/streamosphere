@@ -1,4 +1,5 @@
-﻿import React, { Component } from "react";
+//external resources
+import React, { Component } from "react";
 import "../../layouts/Progress.css";
 
 class Progress extends Component {
@@ -6,6 +7,7 @@ class Progress extends Component {
         super(props);
         this.state = {};
     }
+    //progress bar to show user when upload is complete
     render() {
         return (
             <div className="ProgressBar">
