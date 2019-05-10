@@ -1,2 +1,3 @@
 node_modules/
 totally_not_secret.js
+frontend/dist/
