@@ -1,15 +1,15 @@
+//external resources to be imported for usage for this file
 import { BrowserRouter, Route, browserHistory } from 'react-router-dom'
 import React from 'react';
 import SignUpFormBase from './components/containers/LandingPage.jsx'
 import SignInFormBase from './components/containers/SignIn.jsx'
 import AccountHome from './components/containers/AccountHome.jsx'
-//import Navigation from './components/containers/Navigation.jsx'
-// Anthony will add this later
-// import VideoPlayerComp from './components/containers/VideoPlayer.jsx'
 import * as ROUTES from './routes.jsx';
 import './layouts/App.css';
 
 class App extends React.Component {
+    
+    //returns a view component
     render() {
         return (
             <BrowserRouter history={browserHistory}>
