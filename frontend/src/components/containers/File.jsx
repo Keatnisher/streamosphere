@@ -1,4 +1,5 @@
-﻿import React, { Component } from 'react';
+//components imported from other files and libraries
+import React, { Component } from 'react';
 import PreviewFile from './PreviewFile.jsx';
 
 export default class File extends Component {
@@ -14,10 +15,12 @@ export default class File extends Component {
         this.onContextMenuClick = this.onContextMenuClick.bind(this);
     }
 
+    //handle right click
     onContextMenuClick(e) {
         this.props.onContextMenuClick(e)
     }
 
+    //view for File component
     render() {
         return (
             <div>

@@ -1,8 +1,6 @@
+//external resources
 import ReactPlayer from 'react-player'
 import React, {Component}from "react";
-
-// import { MdPause } from 'react-icons/md';
-// import { IconContext } from "react-icons";
 
 import '../../layouts/VideoPlayer.css'
 
@@ -16,7 +14,8 @@ class VideoPlayer extends Component {
         };
 
     }
-
+    
+    //view for video file
     render() {
         console.log('[VideoPlayer.render] resource url: '+this.props.resourceToViewUrl);
         return (

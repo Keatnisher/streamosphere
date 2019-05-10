@@ -1,12 +1,15 @@
+//libraries to use for this component
 import React from "react";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import S3 from 'aws-sdk/clients/s3';
 import { Button } from 'react-bootstrap';
 
+//components from other files to be used
 import File from "./File.jsx";
 import * as consts from '../../Constants.js';
 import * as secret from '../../totally_not_secret.js';
 
+//css file for right click menu
 import '../../layouts/ContextMenuImpl.css';
 
 export default class ContextMenuImpl extends React.Component {
@@ -14,16 +17,12 @@ export default class ContextMenuImpl extends React.Component {
     constructor(props){
         super(props);
 
-        this.handleClick = this.handleClick.bind(this);
         this.handleDownload = this.handleDownload.bind(this);
         this.saveData = this.saveData.bind(this);
         this.convertResource = this.convertResource.bind(this);
     }
 
-    handleClick(e, data) {
-        console.log(data.foo);
-    }
-
+    //save file into client
     saveData(data, fileName){
         let a = document.createElement("a");
         document.body.appendChild(a);
@@ -37,7 +36,8 @@ export default class ContextMenuImpl extends React.Component {
         window.URL.revokeObjectURL(url);
 
     }
-
+    
+    //convert path to file in AWS to path to file on computer
     convertResource(url, userId){
         let _split = url.split('/');
         let fileName = _split[_split.length-1].split('+').join(' ');
@@ -45,7 +45,8 @@ export default class ContextMenuImpl extends React.Component {
 
         return {fileName: fileName, resourceKey: resourceKey};
     }
-
+    
+    //function to handle selection of "Download" button
     handleDownload() {
         let s3 = new S3({
             accessKeyId: secret.S3_ACCESS_KEY_ID,
@@ -73,7 +74,8 @@ export default class ContextMenuImpl extends React.Component {
           }
         });
     }
-
+    
+    //view for ContextMenuImpl
     render(){
         return (
             <div>

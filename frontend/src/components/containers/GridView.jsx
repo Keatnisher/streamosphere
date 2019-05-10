@@ -1,8 +1,10 @@
+// libaries, components, and files
 import React, { Component } from 'react';
 import GridRow from './GridRow.jsx';
 import * as consts from '../../Constants.js';
 import '../../layouts/GridStyles.css';
 
+/*this component displays files in a grid-based format*/
 export default class Grid extends Component {
 
     constructor(props){
@@ -29,7 +31,8 @@ export default class Grid extends Component {
             return 4;
         }
     }
-
+    
+    //get all files and display them in a grid-based format
     render() {
         let numCols = this.state.numCols;
         let numFiles = this.props.filesJson.length;

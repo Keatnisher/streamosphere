@@ -1,21 +1,14 @@
+//libaries and components to be used in the Sign In Component
 import React, { Component } from 'react';
-// import { withRouter } from 'react-router-dom';
-// import SignUpLink from './LandingPage.jsx'
 import { withFirebase } from '../firebase';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../routes.jsx';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import '../../layouts/LandingPage.css'
+import * as consts from "../../Constants";
 
-/*const SignInPage = () => (
-    <div>
-        <h1 className="landingBanner" >Streamosphere</h1>
-        <SignInFormBase/>
-        <SignUpLink />
-    </div>
-);*/
-
+//email and password input has nothing
 const INITIAL_STATE = {
     email: '',
     password: '',
@@ -28,15 +21,29 @@ class SignInFormBase extends Component {
 
         this.state = { ...INITIAL_STATE };
     }
+    
+    async getEmail(email) {
+        let url = consts.API_URL + '/user/'+email;
+        let userId = await fetch(url).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            return data.id;
+        });
+        return userId
+    }
 
+    //function to submit user input and redirect to the account's home page
     onSubmit = event => {
+        let that = this;
         const { email, password } = this.state;
         this.props.firebase
             .doSignInWithEmailAndPassword(email, password)
-            .then(() => {
+            .then(async function(){
                 // may need to change this with auth
-                this.setState({ ...INITIAL_STATE });
-                this.props.history.push(ROUTES.HOME);
+                that.setState({ ...INITIAL_STATE });
+                let userId = await that.getEmail(email);
+                localStorage.setItem('userid', userId);
+                that.props.history.push(ROUTES.HOME);
             })
             .catch(error => {
                 this.setState({ error });
@@ -44,11 +51,13 @@ class SignInFormBase extends Component {
 
         event.preventDefault();
     };
-
+    
+    //get user input
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
 
+    //view for Sign In Component
     render() {
         const { email, password, error } = this.state;
 

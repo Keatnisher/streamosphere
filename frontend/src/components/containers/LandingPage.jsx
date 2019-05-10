@@ -1,28 +1,22 @@
+//libraries and other external resources for LandingPage.jsx
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../routes.jsx';
 import { withFirebase } from '../firebase';
-// import SignIn from './SignIn.jsx';
 import '../../layouts/LandingPage.css'
 import * as consts from '../../Constants.js';
 
-/*const LandingPage = () => (
-    <div>
-    <Button className="signInButton" variant="light"><Link to={ROUTES.SIGN_IN}>Sign In</Link></Button>
-      <h1 className="landingBanner" >Streamosphere</h1>
-      <SignUpForm />
-    </div>
-);*/
 
-
+//input fields empty
 const INITIAL_STATE = {
   email: '',
   password: '',
   error: null,
 };
 
+//this compomnent allows user to make an account by entering new email address and password
 class SignUpFormBase extends React.Component {
     constructor(props) {
         super(props);
@@ -31,7 +25,8 @@ class SignUpFormBase extends React.Component {
         this.createGist = this.createGist.bind(this);
         this.userId = -1
     }
-
+    
+    //creates a user id based on user input
     async createGist(email) {
         let url = consts.API_URL + '/user';
         let userId = await fetch(url, {
@@ -44,10 +39,10 @@ class SignUpFormBase extends React.Component {
         });
         return userId
     }
-
+    
+    //function to handle selection of "Sign Up" button
     onSubmit = event => {
         let that = this;
-
         const { history } = this.props;
         const { email, password } = this.state;
         this.props.firebase
@@ -55,7 +50,7 @@ class SignUpFormBase extends React.Component {
             .then(async function(authUser){
               that.setState({ ...INITIAL_STATE });
               let userId = await that.createGist(email);
-              localStorage.setItem('userid', userId)
+              localStorage.setItem('userid', userId);
               that.props.history.push(ROUTES.HOME);
             })
             .catch(error => {
@@ -65,18 +60,24 @@ class SignUpFormBase extends React.Component {
         event.preventDefault();
     };
 
+      //save user input
       onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
       };
 
+    //view for LandingPage component
     render() {
+      
       const {
             email,
             password,
             error,
         } = this.state;
+      
+        //input validation
         const isInvalid = password === '' || email === '';
-
+        
+        //view compoment for SignUpFormBase
         return (
             <div className="landingBackground">
                 <Button className="signInButton" variant="light"><Link to={ROUTES.SIGN_IN}>Sign In</Link></Button>
@@ -118,16 +119,14 @@ class SignUpFormBase extends React.Component {
     }
   }
 
-
+//stateless component
 const SignUpLink = () => (
     <p>
       Already have an account? <Link to={ROUTES.SIGN_IN}>Sign In</Link>
     </p>
 );
 
-//const SignUpForm = SignUpFormBase;
 
 
 export default withFirebase(SignUpFormBase);
 
-//export { SignUpForm, SignUpLink };

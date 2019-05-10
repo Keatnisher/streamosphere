@@ -1,9 +1,11 @@
+//external resources needed
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import VideoPlayer from './VideoPlayer.jsx';
 
 export default class MediaPlayerView extends React.Component {
 
+    //view component that shows the video file and a button to go back
     render() {
         return (
             <div>
