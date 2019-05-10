@@ -1,20 +1,13 @@
+//libraries and other external resources for LandingPage.jsx
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../routes.jsx';
 import { withFirebase } from '../firebase';
-// import SignIn from './SignIn.jsx';
 import '../../layouts/LandingPage.css'
 import * as consts from '../../Constants.js';
 
-/*const LandingPage = () => (
-    <div>
-    <Button className="signInButton" variant="light"><Link to={ROUTES.SIGN_IN}>Sign In</Link></Button>
-      <h1 className="landingBanner" >Streamosphere</h1>
-      <SignUpForm />
-    </div>
-);*/
 
 
 const INITIAL_STATE = {
@@ -44,7 +37,8 @@ class SignUpFormBase extends React.Component {
         });
         return userId
     }
-
+    
+    //function to handle selection of "Sign Up" button
     onSubmit = event => {
         let that = this;
         const { history } = this.props;
@@ -63,11 +57,11 @@ class SignUpFormBase extends React.Component {
 
         event.preventDefault();
     };
-
+      //save user input
       onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
       };
-
+    //view for LandingPage component
     render() {
       const {
             email,
@@ -117,16 +111,14 @@ class SignUpFormBase extends React.Component {
     }
   }
 
-
+//stateless component
 const SignUpLink = () => (
     <p>
       Already have an account? <Link to={ROUTES.SIGN_IN}>Sign In</Link>
     </p>
 );
 
-//const SignUpForm = SignUpFormBase;
 
 
 export default withFirebase(SignUpFormBase);
 
-//export { SignUpForm, SignUpLink };
