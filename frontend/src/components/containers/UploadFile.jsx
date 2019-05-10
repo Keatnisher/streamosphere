@@ -19,7 +19,8 @@ class UploadFile extends Component {
         this.sendRequest = this.sendRequest.bind(this);
         this.renderActions = this.renderActions.bind(this);
     }
-
+    
+    //add uploaded file to array
     onFilesAdded(files) {
         this.setState(prevState => ({
             files: prevState.files.concat(files)
@@ -42,10 +43,12 @@ class UploadFile extends Component {
         }
     }
 
+    //submit http request to upload file
     sendRequest(file) {
         return new Promise((resolve, reject) => {
             const req = new XMLHttpRequest();
-
+            
+            //add event handlers to http request
             req.upload.addEventListener("progress", event => {
                 if (event.lengthComputable) {
                     const copy = { ...this.state.uploadProgress };
@@ -103,7 +106,8 @@ class UploadFile extends Component {
             );
         }
     }
-
+    
+    //display "Clear" button once upload is complete
     renderActions() {
         if (this.state.successfullUploaded) {
             return (
@@ -127,7 +131,8 @@ class UploadFile extends Component {
             );
         }
     }
-
+    
+    //display dropzone for user to upload files
     render() {
         console.log('[UploadFile] storage user id: '+localStorage.getItem("userid"));
         return (
