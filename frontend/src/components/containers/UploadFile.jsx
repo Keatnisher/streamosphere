@@ -1,4 +1,5 @@
-﻿import React, { Component } from 'react';
+//external resources needed for UploadFile component
+import React, { Component } from 'react';
 import Dropzone from './DropZone.jsx';
 import "../../layouts/UploadFile.css";
 import Progress from './Progress.jsx';
@@ -13,7 +14,8 @@ class UploadFile extends Component {
             uploadProgress: {},
             successfullUploaded: false
         };
-
+        
+        //functions needed for this component
         this.onFilesAdded = this.onFilesAdded.bind(this);
         this.uploadFiles = this.uploadFiles.bind(this);
         this.sendRequest = this.sendRequest.bind(this);
@@ -26,7 +28,8 @@ class UploadFile extends Component {
             files: prevState.files.concat(files)
         }));
     }
-
+    
+    //asynchronously add file to database and user's list of files
     async uploadFiles() {
         this.setState({ uploadProgress: {}, uploading: true });
         const promises = [];
@@ -73,7 +76,7 @@ class UploadFile extends Component {
                 this.setState({ uploadProgress: copy });
                 reject(req.response);
             });
-
+            
             const formData = new FormData();
             formData.append("file", file);
 
@@ -86,7 +89,8 @@ class UploadFile extends Component {
             req.send(formData);
         });
     }
-
+    
+    //update progress bar as file is uploading
     renderProgress(file) {
         const uploadProgress = this.state.uploadProgress[file.name];
         if (this.state.uploading || this.state.successfullUploaded) {
